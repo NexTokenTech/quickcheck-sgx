@@ -170,7 +170,6 @@ impl<G: Gen> QuickCheck<G> {
     /// ```
     pub fn quickcheck<A>(&mut self, f: A) where A: Testable {
         // Ignore log init failures, implying it has already been done.
-        let _ = ::env_logger_init();
 
         let n_tests_passed = match self.quicktest(f) {
             Ok(n_tests_passed) => n_tests_passed,
@@ -178,7 +177,7 @@ impl<G: Gen> QuickCheck<G> {
         };
 
         if n_tests_passed >= self.min_tests_passed {
-            info!("(Passed {} QuickCheck tests.)", n_tests_passed)
+            println!("(Passed {} QuickCheck tests.)", n_tests_passed)
         } else {
             panic!(
                 "(Unable to generate enough tests, {} not discarded.)",

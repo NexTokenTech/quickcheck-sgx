@@ -17,11 +17,7 @@ extern crate sgx_tstd as std;
 
 use std::prelude::v1::*;
 
-#[cfg(feature = "use_logging")]
-extern crate env_logger;
-#[cfg(feature = "use_logging")]
 #[macro_use]
-extern crate log;
 extern crate rand;
 extern crate rand_core;
 
@@ -80,19 +76,6 @@ macro_rules! quickcheck {
         }
     )
 }
-
-#[cfg(feature = "use_logging")]
-fn env_logger_init() -> Result<(), log::SetLoggerError> {
-    env_logger::try_init()
-}
-
-#[cfg(not(feature = "use_logging"))]
-fn env_logger_init() { }
-#[cfg(not(feature = "use_logging"))]
-macro_rules! info {
-    ($($_ignore:tt)*) => { () };
-}
-
 
 mod arbitrary;
 mod tester;
